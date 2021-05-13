@@ -1,3 +1,14 @@
+//IN THIS QUESTION WE ASK USER FOR A STRING AND NUMBER OF ROWS & THEN WE INTERPRET THAT STRING IN THE GIVEN NUMBER OF ROWS LIKE THIS :
+// FOR EXAMPLE :
+//STRING = PAYPALISHIRING
+//NUMBER OF ROWS =3
+// THEN THE PATTERN THAT  WILL BE FORMED ON THE BACKEND IS :   P   A   H   N
+//                                                             A P L S I I G
+//                                                             Y   I   R
+//AND THE OUPUT THAT WE WILL SHOW TO THE USER WILL BE LIKE THIS : PAHNAPLSIIGYIR
+
+
+
 #include<iostream>
 using namespace std;
 
