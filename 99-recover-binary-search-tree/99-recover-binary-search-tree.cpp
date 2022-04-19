@@ -10,38 +10,35 @@
  * };
  */
 
-/*
-Brute Force:
-taking a vector, insert value into it according inorder traversal. Then sort, now again traverse the tree (in-order) & check the difference.
-*/
+
+// Optimal:
+ 
 
 class Solution {
+    TreeNode* first, *last, *prev;
 public:
-    vector<int> v;
-    int i=0;
     void inorder(TreeNode* root){
-        if(!root) return;
+        if(root==NULL) return;
         inorder(root->left);
-        v.push_back(root->val);
+        if(prev!=NULL && (root->val<prev->val)){
+            if(first==NULL){
+                first=prev;
+                last=root; 
+            }
+            else
+                last=root;
+        }
+        prev=root;
         inorder(root->right);
     }
-    void check(TreeNode* root){
-        if(!root) return;
-        check(root->left);
-        if(v[i]!=root->val) swap(v[i],root->val);
-        i++;
-        check(root->right);
-    }
     void recoverTree(TreeNode* root) {
+        first=last=prev=NULL;
         inorder(root);
-        sort(v.begin(),v.end());
-        check(root);
+        swap(first->val,last->val);
     }
 };
 
-
-//TC-> O(NlogN), SC-> O(N)+O(N) [1 for vector, 1 for recursion space]
-
+//TC-> O(N), SC->O(N) [for recursion space]
 
 
 
