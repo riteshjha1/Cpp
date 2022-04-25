@@ -24,26 +24,23 @@ public:
                 for(int k=0;k<8;k++){
                     int cx=i+dx[k];
                     int cy=j+dy[k];
-                    if(isValid(cx,cy,n,m) && board[cx][cy]==1){
+                    if(isValid(cx,cy,n,m) && board[cx][cy]==1)
                         live++;
-            
-                    }
                 }
             
                 // Check if current cell is live or dead and apply rules accordingly and update ans vector
                 if(board[i][j]==1){
-                    if(live<2 || live >3){
+                    if(live<2 || live >3)
                         ans[i][j]=0;
-                    }else{
+                    else
                         ans[i][j]=1;
-                    }
+                    
                 }
                 else{
-                    if(live==3){
+                    if(live==3)
                         ans[i][j]=1;
-                    }else{
+                    else
                         ans[i][j]=0;
-                    }
                 }
             }
         }
