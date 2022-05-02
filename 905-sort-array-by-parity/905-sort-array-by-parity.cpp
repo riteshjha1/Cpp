@@ -1,19 +1,12 @@
 class Solution {
 public:
     vector<int> sortArrayByParity(vector<int>& nums) {
-        if(nums.size()==1)
-            return nums;
-        vector<int> res;
-        for(auto x : nums){
-            if(x%2==0)
-                res.push_back(x);
-        }
-        for(auto x : nums){
-            if(x%2 != 0)
-                res.push_back(x);
-        }
-        return res;
-        
-        
+       int s = 0;
+        int n = nums.size();
+       for(int i=0;i<n;i++){
+           if(nums[i]%2==0)
+               swap(nums[s++],nums[i]);
+       }
+        return nums;
     }
 };
