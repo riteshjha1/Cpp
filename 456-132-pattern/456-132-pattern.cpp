@@ -6,7 +6,7 @@ public:
         stack<int>s;
         for(int i = n-1;i>=0;i--){
             if(nums[i]<s3)
-                return true;
+                return 1;
             else{
                 while(!s.empty() && nums[i]>s.top()){
                     s3 = s.top();
@@ -15,6 +15,6 @@ public:
             }
             s.push(nums[i]);
         }
-        return false;
+        return 0;
     }
 };
