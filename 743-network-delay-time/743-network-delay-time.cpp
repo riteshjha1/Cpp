@@ -1,26 +1,30 @@
 class Solution {
 public:
     int networkDelayTime(vector<vector<int>>& times, int n, int k) {
-        vector<int>dis(n+1,INT_MAX);
+        // Have to make adj list first:
+        vector<pair<int,int>> adj[n+1]; //{v,wt}
+        for(int i=0;i<times.size();i++){
+            adj[times[i][0]].push_back({times[i][1],times[i][2]});
+        }
+        // now Dijkstra's Algo:
+        priority_queue<pair<int,int>, vector<pair<int,int>>, greater<pair<int,int>>> pq; 
+        //We're using min priority queue-> {distance,node}
+        pq.push({0,k});
+        vector<int> dis(n+1,INT_MAX);
         dis[k]=0;
-        for(int i=1;i<n;i++){
-             for(int j=0;j<times.size();j++){
-                   int u=times[j][0];
-                   int v=times[j][1];
-                   int w=times[j][2];
-                 
-                   if(dis[u]!=INT_MAX && dis[u]+w<dis[v])
-                     dis[v]=w+dis[u];
+        while(!pq.empty()){
+            int u=pq.top().second;
+            pq.pop();
+            for(auto it: adj[u]){
+                if(dis[u]+it.second<dis[it.first]){
+                    dis[it.first]=dis[u]+it.second;
+                    pq.push({dis[it.first],it.first});
                 }
-           }
-		   
-        int ans=0;
-        for(int i=1;i<=n;i++){
-            if(dis[i]==INT_MAX)
-                return -1;    // If any node is not reachable from k
-            ans=max(ans,dis[i]);
-           }
-        return ans;
-        
+            }
+        }
+        dis[0]=0;
+        int res=*max_element(dis.begin(),dis.end());
+        return 
+            res<INT_MAX ? res : -1;
     }
 };
