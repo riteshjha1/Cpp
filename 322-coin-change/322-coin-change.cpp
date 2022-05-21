@@ -1,21 +1,25 @@
-/*Memoization
-To reduce time we will just use an 2D array to store our result. Since we are solving our problem recursively you can store the value you got for certain {amount,n} and store it and use it for next time. implementation is:
+/*Tabulation
+In fact for this que we can do 2D Tabulation and 1D tabulation Both, But I will talk about 1D tabulation only Here. Now According to our name suggestion we are using an 1D array. We will set every element to infinity and one by one check from coins array that if we can use this coin to get result or not and take min of thos values and store it. we will focus on these 3 lines from our recursion
+
+int one = help(coins,amount,n-1);
+int two = 1+help(coins,amount-coins[n],n);
+return min(one,two);
+Now here is implementation:
+
+Why Tabulation is better than Memoization?
+Although auxillary time complexity is same we see real time time complexity of memoization will be higher.
+As for space: cleary tabulation is a Better option
 */
 class Solution {
 public:
-    int help(vector<int>& coins, int amount, int n,vector<vector<int>>&h){
-        if(amount == 0) return 0;
-        if(n < 0 || amount < 0) return INT_MAX-1;
-        if(h[n][amount]!= -1) return h[n][amount];
-        int one = help(coins,amount,n-1,h);
-        int two = 1+help(coins,amount-coins[n],n,h);
-        h[n][amount] = min(one,two);
-        return h[n][amount];
-    }
-    
     int coinChange(vector<int>& coins, int amount) {
-        vector<vector<int>>h(coins.size()+1,vector<int>(amount+1,-1));
-        int ans = help(coins,amount,coins.size()-1,h);
-        return (ans < INT_MAX-1)?ans:-1;
+        vector<int>h((amount+1), INT_MAX-1);
+        h[0] = 0;
+        for(int i = 0; i < h.size(); i++){
+            for(int j = 0; j < coins.size(); j++){
+                if(i >= coins[j]) h[i] = min(h[i], 1 + h[i-coins[j]]);
+            }
+        }
+        return (h[h.size()-1] < INT_MAX - 1)?h[h.size()-1]:-1; 
     }
 };
