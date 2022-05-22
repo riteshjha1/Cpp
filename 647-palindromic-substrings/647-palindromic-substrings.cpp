@@ -2,22 +2,28 @@ class Solution {
 public:
     int countSubstrings(string s) {
         
-        int n = s.length();
-        int ans = 0;
-        vector<vector<bool>> dp(n, vector<bool> (n, false));
+        int len = s.length();
+        int cnt = 0;
         
-        for(int shift = 0; shift < n; shift++){
-            for(int start = 0, end = shift; end < n; start++, end++){
-                if(s[start] == s[end]){
-                    if(end - start < 2 || dp[start + 1][end - 1]){
-                        dp[start][end] = true;
-                        ans++;
-                    }
+        // define a dp table
+        vector<vector<int>> dp(len, vector<int>(len, 0));
+        
+        // fill '1' in the diagonal
+        for(int i = 0; i < len; i++) {
+            dp[i][i] = 1;
+            cnt++;
+        }
+        
+        // count the substrings
+        for(int i = 1; i < len; i++) {
+            for(int j = 0; j < i; j++) {
+                
+                if((j + 1 == i && s[j] == s[i]) || (dp[j + 1][i - 1] == 1 && s[i] == s[j])) {
+                    dp[j][i] = 1;
+                    cnt++;
                 }
             }
         }
-
-        return ans;
-        
+        return cnt;
     }
 };
