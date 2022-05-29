@@ -1,3 +1,18 @@
+/* 
+The Second approach (Using Bitmasking)
+So, here we basically just find hash for each word and if we do AND (&) of hash of two words and it becomes equal to 0, then defintely they contain no common letter, so we update ans to max(size(word[i])size(word[j]))
+Using Bitmasking there is not much a difference in time complexity but the time to iterate over the bitset in approach I is reduced to constant O(26)
+
+Time Complexity : O(n*n)
+Space Complexity :O(n)
+*/
+
+
+
+
+
+
+
 class Solution {
 public:
     int maxProduct(vector<string>& words) {     // function to get the max product of two words
