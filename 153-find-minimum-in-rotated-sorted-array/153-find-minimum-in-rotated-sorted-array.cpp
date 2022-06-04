@@ -1,18 +1,14 @@
 class Solution {
     public:
-        int findMin(vector<int> &nums){
-            int low=0;
-            int high=nums.size()-1;
-            int ans;
-            while(low<high){
-                int mid=low+(high-low)/2;
-                if(nums[mid]>=nums[high]){          // to check weather we have rotated or not
-                    ans=low;
-                    low=mid+1; 
-                }
-                else
-                    high=mid;
-            }
-    return nums[low];
+        int findMin(vector<int>& nums) {
+        int left=0,right=nums.size()-1;
+        
+        while(left<right){
+            int mid=left+(right-left)/2;
+
+            if(nums[mid]>nums[right])left=mid+1;              // in this case we assure the minimum is in the right side
+            else right=mid;                                  // in this case we assure the minimum is in the left side
+        }
+        return nums[left];
     }
 };
